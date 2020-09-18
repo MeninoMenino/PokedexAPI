@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PokedexApi1Application {
+public class PokedexApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PokedexApi1Application.class, args);
+		SpringApplication.run(PokedexApiApplication.class, args);
 	}
 
 }
