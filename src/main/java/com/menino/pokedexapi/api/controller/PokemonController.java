@@ -7,9 +7,11 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,10 +43,33 @@ public class PokemonController {
 		}
 	}
 	
-	//Insere um novo Pokemon
+	//Insere um novo Pokémon
 	@PostMapping
 	public ResponseEntity<Pokemon> inserirPokemon(@RequestBody @Valid Pokemon pokemon){
 		Pokemon pokemonInserido = pokemonRepository.save(pokemon);
 		return ResponseEntity.ok(pokemonInserido);
+	}
+	
+	//Altera os dados de um Pokémon salvo
+	@PutMapping("/{numero}")
+	public ResponseEntity<Pokemon> alterarPokemon(@PathVariable int numero,
+					   							  @RequestBody @Valid Pokemon pokemon){
+		Optional<Pokemon> pokemonExistente = pokemonRepository.findById(numero);
+		if(!pokemonExistente.isPresent()) {
+			return ResponseEntity.notFound().build();
+		} else {
+			return ResponseEntity.ok(pokemon);
+		}
+	}
+	
+	//Deleta o registro de um Pokémon
+	@DeleteMapping("/{numero}")
+	public ResponseEntity<Pokemon> deletarPokemon(@PathVariable int numero) {
+		if(!pokemonRepository.findById(numero).isPresent()) {
+			return ResponseEntity.notFound().build();
+		} else {
+			pokemonRepository.deleteById(numero);
+			return ResponseEntity.noContent().build();
+		}
 	}
 }
