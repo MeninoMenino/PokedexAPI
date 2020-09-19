@@ -36,11 +36,7 @@ public class PokemonController {
 	@GetMapping("/{numero}")
 	public ResponseEntity<Pokemon> buscarPokemon(@PathVariable int numero) {
 		Optional<Pokemon> pokemon = pokemonRepository.findById(numero);
-		if(!pokemon.isPresent()) {
-			return ResponseEntity.notFound().build();
-		} else {
-			return ResponseEntity.ok(pokemon.get());
-		}
+		return pokemon.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
 	
 	//Insere um novo Pokémon
