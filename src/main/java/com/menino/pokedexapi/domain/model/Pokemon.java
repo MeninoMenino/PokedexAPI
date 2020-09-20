@@ -1,26 +1,23 @@
 package com.menino.pokedexapi.domain.model;
 
-import lombok.Data;
+import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
-@Entity
-@Data
+@Getter
 public class Pokemon {
 
-	@Id
-	@NotNull
-	private int numero;
-	@NotBlank
-	private String nome;
-	@NotBlank
-	private String descricao;
-	@NotBlank
-	private String tipo1;
-	
-	private String tipo2;
+    private int numero;
+    private String nome;
+    private String descricao;
+    private String tipo1;
+    private String tipo2;
+
+    public Pokemon(int numero, String nome, String descricao, String tipo1, String tipo2) {
+        this.numero = numero;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.tipo1 = tipo1;
+        this.tipo2 = tipo2;
+    }
+
 
 }
