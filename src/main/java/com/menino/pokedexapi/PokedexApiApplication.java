@@ -9,5 +9,4 @@ public class PokedexApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PokedexApiApplication.class, args);
 	}
-
 }

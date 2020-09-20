@@ -1,40 +1,45 @@
 package com.menino.pokedexapi.domain.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class Pokemon {
 
+	/*
 	@NotBlank
 	private String imagem;
+	 */
+	
 	@Id
-	@NotNull
-	private int numero;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer numero;
+	
 	@NotBlank
 	private String nome;
+	
 	@NotBlank
 	private String descricao;
+	
 	@NotBlank
 	private String tipo1;
-	
+
 	private String tipo2;
-	
+
+	//Construtores
+	public Pokemon(@NotBlank String nome, @NotBlank String descricao, @NotBlank String tipo1, String tipo2) {
+		this.nome = nome;
+		this.descricao = descricao;
+		this.tipo1 = tipo1;
+		this.tipo2 = tipo2;
+	}
 	
 	//Getters e setters
 
-	public String getImagem() {
-		return imagem;
-	}
-	public void setImagem(String imagem) {
-		this.imagem = imagem;
-	}
-	public int getNumero() {
-		return numero;
-	}
-	public void setNumero(int numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 	public String getNome() {
