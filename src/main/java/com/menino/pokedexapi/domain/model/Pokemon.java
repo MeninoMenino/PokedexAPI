@@ -1,8 +1,6 @@
 package com.menino.pokedexapi.domain.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
@@ -15,7 +13,6 @@ public class Pokemon {
 	 */
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer numero;
 	
 	@NotBlank
@@ -30,12 +27,15 @@ public class Pokemon {
 	private String tipo2;
 
 	//Construtores
-	public Pokemon(@NotBlank String nome, @NotBlank String descricao, @NotBlank String tipo1, String tipo2) {
-		this.nome = nome;
-		this.descricao = descricao;
-		this.tipo1 = tipo1;
-		this.tipo2 = tipo2;
+	public Pokemon(Integer numero, @NotBlank String nome, @NotBlank String descricao, @NotBlank String tipo1, String tipo2) {
+		setNumero(numero);
+		setNome(nome);
+		setDescricao(descricao);
+		setTipo1(tipo1);
+		setTipo2(tipo2);
 	}
+	
+	public Pokemon() {}
 	
 	//Getters e setters
 
