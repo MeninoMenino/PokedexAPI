@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
+import com.menino.pokedexapi.domain.dto.AlterarPokemonDto;
+
 @Entity
 public class Pokemon {
 
@@ -35,12 +37,23 @@ public class Pokemon {
 		setTipo2(tipo2);
 	}
 	
+	public Pokemon(Integer numero, AlterarPokemonDto alterarPokemonDto) {
+		setNumero(numero);
+		setNome(alterarPokemonDto.getNome());
+		setDescricao(alterarPokemonDto.getDescricao());
+		setTipo1(alterarPokemonDto.getTipo1());
+		setTipo2(alterarPokemonDto.getTipo2());
+	}
+	
 	public Pokemon() {}
 	
 	//Getters e setters
 
 	public void setNumero(Integer numero) {
 		this.numero = numero;
+	}
+	public Integer getNumero() {
+		return numero;
 	}
 	public String getNome() {
 		return nome;

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.menino.pokedexapi.domain.dto.AlterarPokemonDto;
 import com.menino.pokedexapi.domain.model.Pokemon;
 import com.menino.pokedexapi.domain.repository.PokemonRepository;
 
@@ -53,12 +54,13 @@ public class PokemonController {
 	//Altera os dados de um Pokémon salvo
 	@PutMapping("/{numero}")
 	public ResponseEntity<Pokemon> alterarPokemon(@PathVariable int numero,
-			@RequestBody @Valid Pokemon pokemon){
+			@RequestBody @Valid AlterarPokemonDto alterarPokemonDto){
 		Optional<Pokemon> pokemonExistente = pokemonRepository.findById(numero);
 		if(!pokemonExistente.isPresent()) {
 			return ResponseEntity.notFound().build();
 		} else {
-			return ResponseEntity.ok(pokemon);
+			Pokemon pokemonAlterado = new Pokemon(pokemonExistente.get().getNumero(), alterarPokemonDto);
+			return ResponseEntity.ok(pokemonRepository.save(pokemonAlterado));
 		}
 	}
 
