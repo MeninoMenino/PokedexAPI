@@ -1,11 +1,13 @@
 package com.menino.pokedexapi.domain.dto;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 public class AlterarUsuarioDto {
 	@NotBlank
 	String nome;
 	@NotBlank
+	@Email
 	String email;
 	@NotBlank
 	String senha;

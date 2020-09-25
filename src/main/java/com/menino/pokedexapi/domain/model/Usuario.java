@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import com.menino.pokedexapi.domain.dto.AlterarUsuarioDto;
@@ -16,6 +17,7 @@ public class Usuario {
 	@NotBlank
 	String nome;
 	@NotBlank
+	@Email
 	String email;
 	@NotBlank
 	String senha;
@@ -29,6 +31,8 @@ public class Usuario {
 		setEmail(alterarUsuarioDto.getEmail());
 		setSenha(alterarUsuarioDto.getSenha());
 	}
+	
+	public Usuario() {}
 	
 	//Getters e Setters
 	
