@@ -1,7 +1,6 @@
 package com.menino.pokedexapi.api.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -19,13 +18,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.menino.pokedexapi.domain.dto.AlterarUsuarioDto;
 import com.menino.pokedexapi.domain.model.Usuario;
 import com.menino.pokedexapi.domain.repository.UsuarioRepository;
+import com.menino.pokedexapi.domain.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
+	//Repositório de Usuário
 	@Autowired
 	UsuarioRepository usuarioRepository;
+	
+	//Serviços
+	@Autowired
+	UsuarioService usuarioService;
+	
 	
 	@GetMapping
 	public List<Usuario> listar(){
@@ -33,39 +39,23 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Usuario> buscar(@PathVariable Long id){
-		Optional<Usuario> usuario = usuarioRepository.findById(id);
-		if(!usuario.isPresent()) {
-			return ResponseEntity.notFound().build();
-		} else {
-			return ResponseEntity.ok(usuario.get());
-		}
+	public ResponseEntity<Usuario> buscar(@PathVariable Integer id){
+		return usuarioService.buscar(id); 
 	}
 	
 	@PostMapping
 	public ResponseEntity<Usuario> inserirUsuario(@RequestBody @Valid Usuario usuario){
-		return ResponseEntity.ok(usuarioRepository.save(usuario));
+		return usuarioService.inserir(usuario);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Usuario> alterarUsuario(@PathVariable Long id,
+	public ResponseEntity<Usuario> alterarUsuario(@PathVariable Integer id,
 			@RequestBody @Valid AlterarUsuarioDto alterarUsuarioDto){
-		Optional<Usuario> usuarioExistente = usuarioRepository.findById(id);
-		if(!usuarioExistente.isPresent()) {
-			return ResponseEntity.notFound().build();
-		} else {
-			Usuario usuarioAlterado = new Usuario(id, alterarUsuarioDto);
-			return ResponseEntity.ok(usuarioAlterado);
-		}
+		return usuarioService.alterar(id, alterarUsuarioDto);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Usuario> deletarUsuario(@PathVariable Long id){
-		if(!usuarioRepository.findById(id).isPresent()) {
-			return ResponseEntity.notFound().build();
-		} else {
-			usuarioRepository.deleteById(id);
-			return ResponseEntity.noContent().build();
-		}
+	public ResponseEntity<Usuario> deletarUsuario(@PathVariable Integer id){
+		return usuarioService.deletar(id);
 	}
 }
