@@ -15,7 +15,7 @@ create table usuario(
 	id integer primary key not null auto_increment,
     nome varchar(50),
     email varchar(50),
-    senha varchar(20)
+    senha varchar(150)
 );
-
+insert into usuario (nome, email, senha) values ("Menino", "menino@menino.com", "$2a$10$Rac6HVv3.DsP0JW3.8OIA.hMT5HUNIcTtuHlFR8DkptQLITLqHo3e");
 select * from usuario;
