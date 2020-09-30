@@ -62,7 +62,7 @@ public class PokemonService {
 	//------------------------
 
 	//Atualiza todos os Pokémon do banco de dados
-	//@Bean
+	@Bean
 	public void atualizarBanco(){
 		List<Pokemon> pkmn = pokemonRepository.findAll();
 		pokemonRepository.deleteAll(pkmn);
