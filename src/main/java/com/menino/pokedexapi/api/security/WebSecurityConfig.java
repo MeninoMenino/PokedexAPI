@@ -25,7 +25,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers(HttpMethod.GET, "/pokemon").permitAll()
 			.anyRequest().authenticated()
 			.and()
-				.formLogin().permitAll()
+				.formLogin()
+				.loginPage("/login.html")
+				.permitAll()
 			.and()
 				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}
