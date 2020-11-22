@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
-import com.menino.pokedexapi.domain.dto.AlterarPokemonDto;
+import com.menino.pokedexapi.domain.dto.PutPokemonDto;
 
 @Entity
 public class Pokemon {
@@ -15,68 +15,68 @@ public class Pokemon {
 	 */
 	
 	@Id
-	private Integer numero;
+	private Integer number;
 	
 	@NotBlank
-	private String nome;
+	private String name;
 	
 	@NotBlank
-	private String descricao;
+	private String description;
 	
 	@NotBlank
-	private String tipo1;
+	private String type1;
 
-	private String tipo2;
+	private String type2;
 
 	//Construtores
-	public Pokemon(Integer numero, @NotBlank String nome, @NotBlank String descricao, @NotBlank String tipo1, String tipo2) {
-		setNumero(numero);
-		setNome(nome);
-		setDescricao(descricao);
-		setTipo1(tipo1);
-		setTipo2(tipo2);
+	public Pokemon(Integer number, @NotBlank String name, @NotBlank String description, @NotBlank String type1, String type2) {
+		setNumber(number);
+		setName(name);
+		setDescription(description);
+		setType1(type1);
+		setType2(type2);
 	}
 	
-	public Pokemon(Integer numero, AlterarPokemonDto alterarPokemonDto) {
-		setNumero(numero);
-		setNome(alterarPokemonDto.getNome());
-		setDescricao(alterarPokemonDto.getDescricao());
-		setTipo1(alterarPokemonDto.getTipo1());
-		setTipo2(alterarPokemonDto.getTipo2());
+	public Pokemon(Integer number, PutPokemonDto putPokemonDto) {
+		setNumber(number);
+		setName(putPokemonDto.getName());
+		setDescription(putPokemonDto.getDescription());
+		setType1(putPokemonDto.getType1());
+		setType2(putPokemonDto.getType2());
 	}
 	
 	public Pokemon() {}
 	
 	//Getters e setters
 
-	public void setNumero(Integer numero) {
-		this.numero = numero;
+	public void setNumber(Integer number) {
+		this.number = number;
 	}
-	public Integer getNumero() {
-		return numero;
+	public Integer getNumber() {
+		return number;
 	}
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getDescricao() {
-		return descricao;
+	public String getDescription() {
+		return description;
 	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-	public String getTipo1() {
-		return tipo1;
+	public String getType1() {
+		return type1;
 	}
-	public void setTipo1(String tipo1) {
-		this.tipo1 = tipo1;
+	public void setType1(String type1) {
+		this.type1 = type1;
 	}
-	public String getTipo2() {
-		return tipo2;
+	public String getType2() {
+		return type2;
 	}
-	public void setTipo2(String tipo2) {
-		this.tipo2 = tipo2;
+	public void setType2(String type2) {
+		this.type2 = type2;
 	}
 }

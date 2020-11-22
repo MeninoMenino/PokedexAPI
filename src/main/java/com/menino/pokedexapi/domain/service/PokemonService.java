@@ -5,12 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.menino.pokedexapi.domain.dto.AlterarPokemonDto;
-import com.menino.pokedexapi.domain.model.ListaPokemon;
+import com.menino.pokedexapi.domain.dto.PutPokemonDto;
+import com.menino.pokedexapi.domain.model.PokemonList;
 import com.menino.pokedexapi.domain.model.Pokemon;
 import com.menino.pokedexapi.domain.repository.PokemonRepository;
 
@@ -22,12 +21,12 @@ public class PokemonService {
 
 	//Serviços de CRUD
 
-	public List<Pokemon> listar(){
+	public List<Pokemon> list(){
 		return pokemonRepository.findAll();
 	}
 
-	public ResponseEntity<Pokemon> buscar(Integer numero){
-		Optional<Pokemon> pokemon = pokemonRepository.findById(numero);
+	public ResponseEntity<Pokemon> search(Integer number){
+		Optional<Pokemon> pokemon = pokemonRepository.findById(number);
 		if(!pokemon.isPresent()) {
 			return ResponseEntity.notFound().build();
 		} else {
@@ -35,26 +34,26 @@ public class PokemonService {
 		}
 	}
 
-	public ResponseEntity<Pokemon> inserir(Pokemon pokemon){
-		Pokemon pokemonInserido = pokemonRepository.save(pokemon);
-		return ResponseEntity.ok(pokemonInserido);
+	public ResponseEntity<Pokemon> post(Pokemon pokemon){
+		Pokemon postedPokemon = pokemonRepository.save(pokemon);
+		return ResponseEntity.ok(postedPokemon);
 	}
 
-	public ResponseEntity<Pokemon> alterar(Integer numero, AlterarPokemonDto alterarPokemonDto){
-		Optional<Pokemon> pokemonExistente = pokemonRepository.findById(numero);
-		if(!pokemonExistente.isPresent()) {
+	public ResponseEntity<Pokemon> put(Integer number, PutPokemonDto putPokemonDto){
+		Optional<Pokemon> existentPokemon = pokemonRepository.findById(number);
+		if(!existentPokemon.isPresent()) {
 			return ResponseEntity.notFound().build();
 		} else {
-			Pokemon pokemonAlterado = new Pokemon(pokemonExistente.get().getNumero(), alterarPokemonDto);
-			return ResponseEntity.ok(pokemonRepository.save(pokemonAlterado));
+			Pokemon patchedPokemon = new Pokemon(existentPokemon.get().getNumber(), putPokemonDto);
+			return ResponseEntity.ok(pokemonRepository.save(patchedPokemon));
 		}
 	}
 	
-	public ResponseEntity<Pokemon> deletar(Integer numero){
-		if(!pokemonRepository.findById(numero).isPresent()) {
+	public ResponseEntity<Pokemon> delete(Integer number){
+		if(!pokemonRepository.findById(number).isPresent()) {
 			return ResponseEntity.notFound().build();
 		} else {
-			pokemonRepository.deleteById(numero);
+			pokemonRepository.deleteById(number);
 			return ResponseEntity.noContent().build();
 		}
 	}
@@ -63,28 +62,28 @@ public class PokemonService {
 
 	//Atualiza todos os Pokémon do banco de dados
 	//@Bean
-	public void atualizarBanco(){
+	public void fillDatabase(){
 		List<Pokemon> pkmn = pokemonRepository.findAll();
 		pokemonRepository.deleteAll(pkmn);
 
-		int tamanhoLote = 10;
+		int packSize = 10;
 
-		List<Pokemon> lista = new ListaPokemon().criarLista();
-		List<Pokemon> lote = new ArrayList<Pokemon>();
+		List<Pokemon> list = new PokemonList().createList();
+		List<Pokemon> pack = new ArrayList<Pokemon>();
 
-		lista.stream()
+		list.stream()
 		.forEach((pokemon) -> {
-			lote.add(pokemon);
+			pack.add(pokemon);
 
-			if(lote.size() % tamanhoLote == 0 && lote.size() > 0) {
-				pokemonRepository.saveAll(lote);
-				lote.clear();
+			if(pack.size() % packSize == 0 && pack.size() > 0) {
+				pokemonRepository.saveAll(pack);
+				pack.clear();
 				pokemonRepository.flush();
 			}
 		});
-		if(lote.size() > 0) {
-			pokemonRepository.saveAll(lote);
-			lote.clear();
+		if(pack.size() > 0) {
+			pokemonRepository.saveAll(pack);
+			pack.clear();
 			pokemonRepository.flush();
 		}
 	}

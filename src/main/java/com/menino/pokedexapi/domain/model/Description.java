@@ -259,9 +259,9 @@ public enum Description {
     HOOH("Pokémon Arco-íris.\n\nAs penas de Ho-Oh brilham em sete cores, dependendo do ângulo em que são atingidas pela luz. Diz-se que essas penas trazem felicidade aos portadores. Diz-se que este Pokémon vive ao pé de um arco-íris."),
     CELEBI("Pokémon Viagem no Tempo.\n\nEste Pokémon veio do futuro cruzando ao longo do tempo. Pensa-se que enquanto Celebi aparecer, um futuro claro e brilhante nos espera.");
 
-	public String descricao;
+	public String description;
 
-	Description(String descricao) {
-		this.descricao = descricao;
+	Description(String description) {
+		this.description = description;
 	}    
 }

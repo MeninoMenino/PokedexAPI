@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.menino.pokedexapi.domain.dto.AlterarUsuarioDto;
-import com.menino.pokedexapi.domain.model.Usuario;
-import com.menino.pokedexapi.domain.repository.UsuarioRepository;
-import com.menino.pokedexapi.domain.service.UsuarioService;
+import com.menino.pokedexapi.domain.dto.PutUserDto;
+import com.menino.pokedexapi.domain.model.User;
+import com.menino.pokedexapi.domain.repository.UserRepository;
+import com.menino.pokedexapi.domain.service.UserService;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -26,36 +26,36 @@ public class UsuarioController {
 
 	//Repositório de Usuário
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	UserRepository usuarioRepository;
 	
 	//Serviços
 	@Autowired
-	UsuarioService usuarioService;
+	UserService usuarioService;
 	
 	
 	@GetMapping
-	public List<Usuario> listar(){
+	public List<User> listar(){
 		return usuarioRepository.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Usuario> buscar(@PathVariable Integer id){
-		return usuarioService.buscar(id); 
+	public ResponseEntity<User> buscar(@PathVariable Integer id){
+		return usuarioService.search(id); 
 	}
 	
 	@PostMapping
-	public ResponseEntity<Usuario> inserirUsuario(@RequestBody @Valid Usuario usuario){
-		return usuarioService.inserir(usuario);
+	public ResponseEntity<User> inserirUsuario(@RequestBody @Valid User usuario){
+		return usuarioService.post(usuario);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Usuario> alterarUsuario(@PathVariable Integer id,
-			@RequestBody @Valid AlterarUsuarioDto alterarUsuarioDto){
-		return usuarioService.alterar(id, alterarUsuarioDto);
+	public ResponseEntity<User> alterarUsuario(@PathVariable Integer id,
+			@RequestBody @Valid PutUserDto alterarUsuarioDto){
+		return usuarioService.put(id, alterarUsuarioDto);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Usuario> deletarUsuario(@PathVariable Integer id){
-		return usuarioService.deletar(id);
+	public ResponseEntity<User> deletarUsuario(@PathVariable Integer id){
+		return usuarioService.delete(id);
 	}
 }

@@ -3,23 +3,23 @@ package com.menino.pokedexapi.domain.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-public class AlterarUsuarioDto {
+public class PutUserDto {
 	@NotBlank
-	String nome;
+	String name;
 	@NotBlank
 	@Email
 	String email;
 	@NotBlank
-	String senha;
+	String password;
 	
 	
 	//Getters e Setters
 	
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getEmail() {
 		return email;
@@ -27,10 +27,10 @@ public class AlterarUsuarioDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getSenha() {
-		return senha;
+	public String getPassword() {
+		return password;
 	}
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

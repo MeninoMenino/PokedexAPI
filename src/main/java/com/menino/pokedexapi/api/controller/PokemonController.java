@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.menino.pokedexapi.domain.dto.AlterarPokemonDto;
+import com.menino.pokedexapi.domain.dto.PutPokemonDto;
 import com.menino.pokedexapi.domain.model.Pokemon;
 import com.menino.pokedexapi.domain.repository.PokemonRepository;
 import com.menino.pokedexapi.domain.service.PokemonService;
@@ -37,31 +37,31 @@ public class PokemonController {
 	//Lista todos os Pokémon
 	@GetMapping
 	public List<Pokemon> listarPokemon(){
-		return pokemonService.listar();
+		return pokemonService.list();
 	}
 
 	//Busca Pokémon por número
 	@GetMapping("/{numero}")
 	public ResponseEntity<Pokemon> buscarPokemon(@PathVariable int numero) {
-		return pokemonService.buscar(numero);
+		return pokemonService.search(numero);
 	}
 
 	//Insere um novo Pokémon
 	@PostMapping
 	public ResponseEntity<Pokemon> inserirPokemon(@Valid @RequestBody Pokemon pokemon){
-		return pokemonService.inserir(pokemon);
+		return pokemonService.post(pokemon);
 	}
 
 	//Altera os dados de um Pokémon salvo
 	@PutMapping("/{numero}")
 	public ResponseEntity<Pokemon> alterarPokemon(@PathVariable int numero,
-			@RequestBody @Valid AlterarPokemonDto alterarPokemonDto){
-		return pokemonService.alterar(numero, alterarPokemonDto);
+			@RequestBody @Valid PutPokemonDto alterarPokemonDto){
+		return pokemonService.put(numero, alterarPokemonDto);
 	}
 
 	//Deleta o registro de um Pokémon
 	@DeleteMapping("/{numero}")
 	public ResponseEntity<Pokemon> deletarPokemon(@PathVariable int numero) {
-		return pokemonService.deletar(numero);
+		return pokemonService.delete(numero);
 	}
 }

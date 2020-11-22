@@ -12,10 +12,10 @@ import javax.validation.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.menino.pokedexapi.domain.dto.AlterarUsuarioDto;
+import com.menino.pokedexapi.domain.dto.PutUserDto;
 
 @Entity
-public class Usuario implements UserDetails{
+public class User implements UserDetails{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -23,23 +23,23 @@ public class Usuario implements UserDetails{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	@NotBlank
-	String nome;
+	String name;
 	@NotBlank
 	@Email
 	String email;
 	@NotBlank
-	String senha;
+	String password;
 	
 	//Construtores
 	
-	public Usuario(Integer id, AlterarUsuarioDto alterarUsuarioDto) {
+	public User(Integer id, PutUserDto alterarUsuarioDto) {
 		setId(id);
-		setNome(alterarUsuarioDto.getNome());
+		setName(alterarUsuarioDto.getName());
 		setEmail(alterarUsuarioDto.getEmail());
-		setSenha(alterarUsuarioDto.getSenha());
+		setPassword(alterarUsuarioDto.getPassword());
 	}
 	
-	public Usuario() {}
+	public User() {}
 	
 	//Getters e Setters
 	
@@ -49,11 +49,11 @@ public class Usuario implements UserDetails{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getEmail() {
 		return email;
@@ -61,11 +61,8 @@ public class Usuario implements UserDetails{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getSenha() {
-		return senha;
-	}
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 
@@ -79,7 +76,7 @@ public class Usuario implements UserDetails{
 
 	@Override
 	public String getPassword() {
-		return getSenha();
+		return getPassword();
 	}
 
 	@Override
