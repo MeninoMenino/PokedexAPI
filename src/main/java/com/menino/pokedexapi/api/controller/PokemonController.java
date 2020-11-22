@@ -36,14 +36,14 @@ public class PokemonController {
 	
 	//Lista todos os Pokémon
 	@GetMapping
-	public List<Pokemon> listarPokemon(){
+	public List<Pokemon> listPokemon(){
 		return pokemonService.list();
 	}
 
 	//Busca Pokémon por número
-	@GetMapping("/{numero}")
-	public ResponseEntity<Pokemon> buscarPokemon(@PathVariable int numero) {
-		return pokemonService.search(numero);
+	@GetMapping("/{number}")
+	public ResponseEntity<Pokemon> buscarPokemon(@PathVariable int number) {
+		return pokemonService.search(number);
 	}
 
 	//Insere um novo Pokémon
@@ -53,15 +53,15 @@ public class PokemonController {
 	}
 
 	//Altera os dados de um Pokémon salvo
-	@PutMapping("/{numero}")
-	public ResponseEntity<Pokemon> alterarPokemon(@PathVariable int numero,
-			@RequestBody @Valid PutPokemonDto alterarPokemonDto){
-		return pokemonService.put(numero, alterarPokemonDto);
+	@PutMapping("/{number}")
+	public ResponseEntity<Pokemon> putPokemon(@PathVariable int number,
+			@RequestBody @Valid PutPokemonDto putPokemonDto){
+		return pokemonService.put(number, putPokemonDto);
 	}
 
 	//Deleta o registro de um Pokémon
-	@DeleteMapping("/{numero}")
-	public ResponseEntity<Pokemon> deletarPokemon(@PathVariable int numero) {
-		return pokemonService.delete(numero);
+	@DeleteMapping("/{number}")
+	public ResponseEntity<Pokemon> deletePokemon(@PathVariable int number) {
+		return pokemonService.delete(number);
 	}
 }

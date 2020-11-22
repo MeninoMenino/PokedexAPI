@@ -21,41 +21,41 @@ import com.menino.pokedexapi.domain.repository.UserRepository;
 import com.menino.pokedexapi.domain.service.UserService;
 
 @RestController
-@RequestMapping("/usuarios")
-public class UsuarioController {
+@RequestMapping("/users")
+public class UserController {
 
 	//Repositório de Usuário
 	@Autowired
-	UserRepository usuarioRepository;
+	UserRepository userRepository;
 	
 	//Serviços
 	@Autowired
-	UserService usuarioService;
+	UserService userService;
 	
 	
 	@GetMapping
-	public List<User> listar(){
-		return usuarioRepository.findAll();
+	public List<User> listUsers(){
+		return userRepository.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<User> buscar(@PathVariable Integer id){
-		return usuarioService.search(id); 
+	public ResponseEntity<User> searchUser(@PathVariable Integer id){
+		return userService.search(id); 
 	}
 	
 	@PostMapping
-	public ResponseEntity<User> inserirUsuario(@RequestBody @Valid User usuario){
-		return usuarioService.post(usuario);
+	public ResponseEntity<User> postUser(@RequestBody @Valid User user){
+		return userService.post(user);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<User> alterarUsuario(@PathVariable Integer id,
-			@RequestBody @Valid PutUserDto alterarUsuarioDto){
-		return usuarioService.put(id, alterarUsuarioDto);
+	public ResponseEntity<User> putUser(@PathVariable Integer id,
+			@RequestBody @Valid PutUserDto putUserDto){
+		return userService.put(id, putUserDto);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<User> deletarUsuario(@PathVariable Integer id){
-		return usuarioService.delete(id);
+	public ResponseEntity<User> deleteUser(@PathVariable Integer id){
+		return userService.delete(id);
 	}
 }

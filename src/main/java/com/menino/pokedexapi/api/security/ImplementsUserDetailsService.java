@@ -13,16 +13,16 @@ import com.menino.pokedexapi.domain.repository.UserRepository;
 public class ImplementsUserDetailsService implements UserDetailsService{
 
 	@Autowired
-	UserRepository usuarioRepository;
+	UserRepository userRepository;
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		User usuario = usuarioRepository.findByEmail(email);
+		User user = userRepository.findByEmail(email);
 		
-		if(usuario == null) {
+		if(user == null) {
 			throw new UsernameNotFoundException("Usuário não encontrado");
 		} else {
-			return usuario;
+			return user;
 		}
 	}
 
